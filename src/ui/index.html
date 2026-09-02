@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mefresh // Ultra-Futuristic Windows Post-Install & Priming Studio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Background Animated Cyber Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="app-container">
+        <!-- Top Futuristic Navigation Header -->
+        <header class="cyber-header">
+            <div class="brand-section">
+                <div class="brand-logo">
+                    <img src="icon.png" class="brand-img-icon" alt="mefresh logo">
+                </div>
+                <div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <h1 class="brand-title">mefresh</h1>
+                        <span class="brand-badge">STUDIO v1.0</span>
+                    </div>
+                    <div style="font-size:11px; color:var(--text-dim); font-family:var(--font-mono); letter-spacing:0.5px;">POST-INSTALL AUTOMATION MATRIX</div>
+                </div>
+            </div>
+
+            <!-- Main Tab Navigation -->
+            <nav class="cyber-nav">
+                <button class="nav-tab active" data-view="dashboard" id="tab-dashboard">
+                    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                    Mission Control
+                </button>
+                <button class="nav-tab" data-view="priming" id="tab-priming">
+                    <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                    Priming & Bundle
+                </button>
+                <button class="nav-tab" data-view="deployment" id="tab-deployment">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    Silent Deployment
+                </button>
+                <button class="nav-tab" data-view="debloat" id="tab-debloat">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Debloat & Privacy
+                </button>
+                <button class="nav-tab" data-view="sysinfo" id="tab-sysinfo">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    Diagnostics (msinfo32)
+                </button>
+                <button class="nav-tab" data-view="settings" id="tab-settings">
+                    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                    Settings & Audio
+                </button>
+            </nav>
+
+            <!-- Actions & Status -->
+            <div class="header-actions">
+                <div class="status-pill" id="admin-status-pill">
+                    <div class="status-dot"></div>
+                    <span id="admin-status-text">ADMIN ELEVATED</span>
+                </div>
+                <button class="btn-icon" id="btn-quick-restore" title="Create Windows System Restore Point">
+                    <svg style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                </button>
+                <button class="btn-icon" id="btn-audio-toggle" title="Toggle Sound Effects">
+                    <svg id="icon-audio" style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Viewport -->
+        <main class="main-viewport">
+            
+            <!-- VIEW 1: MISSION CONTROL / DASHBOARD -->
+            <section class="view-section active" id="view-dashboard">
+                <!-- Telemetry Matrix Controls & Shutter Toggle -->
+                <div class="telemetry-header-bar">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="cyber-pulse-dot" id="hud-pulse-dot"></span>
+                        <span style="font-size:12px; font-weight:800; letter-spacing:1.5px; color:var(--text-cyan); text-transform:uppercase;">// Live System Telemetry Matrix</span>
+                        <span class="badge-tag badge-cyan" id="hud-status-badge" style="font-size:10px; padding:2px 8px;">ACTIVE STREAM (200ms)</span>
+                    </div>
+                    <button class="cyber-toggle-btn" id="btn-toggle-telemetry" title="Toggle telemetry HUD streaming">
+                        <span id="telemetry-toggle-icon">◈</span>
+                        <span id="telemetry-toggle-text">COLLAPSE HUD</span>
+                    </button>
+                </div>
+
+                <!-- Collapsible Holographic Telemetry HUD Wrapper -->
+                <div id="telemetry-hud-wrapper" class="telemetry-hud-wrapper">
+                    <!-- Comprehensive System Telemetry HUD (6-Card Matrix) -->
+                    <div class="grid-3" style="margin-bottom: 20px;">
+                        <!-- 1. CPU Processor Card -->
+                        <div class="stat-box">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <span class="stat-label">CPU Utilization</span>
+                                <div style="display:flex; gap:6px; align-items:center;">
+                                    <span class="badge-tag badge-red" id="hud-cpu-temp">45.0°C</span>
+                                    <canvas id="cpu-sparkline" width="70" height="20" style="border-radius:3px;"></canvas>
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:baseline; gap:10px;">
+                                <span class="stat-value" id="hud-cpu">0%</span>
+                                <span class="badge-tag badge-cyan" id="hud-cpu-freq">⚡ 0.00 GHz</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar-cyan" id="hud-cpu-bar" style="width: 0%;"></div>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px; gap:8px;">
+                                <span class="stat-meta" id="hud-cpu-cores" style="flex-shrink:0;">6 Cores / 12 Threads</span>
+                                <span class="stat-meta" id="hud-cpu-top" style="color:var(--text-cyan); font-weight:700; flex:1; text-align:right;">Top: -</span>
+                            </div>
+                        </div>
+
+                        <!-- 2. Dual GPU Accelerator Card -->
+                        <div class="stat-box">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <span class="stat-label">GPU Accelerators</span>
+                                <div style="display:flex; gap:6px; align-items:center;">
+                                    <span class="badge-tag badge-green" id="hud-igpu-badge">iGPU: 0%</span>
+                                    <span class="badge-tag badge-purple" id="hud-gpu-temp">0°C</span>
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:baseline; gap:10px;">
+                                <span class="stat-value" id="hud-gpu-util">0%</span>
+                                <span style="font-size:13px; font-weight:700; color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:140px;" id="hud-gpu-name">dGPU</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar-purple" id="hud-gpu-bar" style="width: 0%;"></div>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px; gap:8px;">
+                                <span class="stat-meta" id="hud-gpu-vram" style="flex-shrink:0;">VRAM: 0.0 / 0.0 GB</span>
+                                <span class="stat-meta" id="hud-gpu-top" style="color:var(--purple-primary); font-weight:700; flex:1; text-align:right;">Top: -</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. Physical RAM Card -->
+                        <div class="stat-box">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <span class="stat-label">Physical Memory</span>
+                                <canvas id="ram-sparkline" width="90" height="22" style="border-radius:3px;"></canvas>
+                            </div>
+                            <div style="display:flex; align-items:baseline; gap:10px;">
+                                <span class="stat-value" id="hud-ram">0%</span>
+                                <span class="badge-tag badge-green" id="hud-ram-speed">⚡ 5200 MHz</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar-cyan" id="hud-ram-bar" style="width: 0%;"></div>
+                            </div>
+                            <span class="stat-meta" id="hud-ram-meta">0.0 GB / 0.0 GB</span>
+                        </div>
+                    </div>
+
+                    <div class="grid-3" style="margin-bottom: 20px;">
+                        <!-- 4. Separate Per-Drive Storage & I/O Matrix -->
+                        <div class="stat-box" style="grid-column: span 2;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;">
+                                <span class="stat-label">Separate Drives Storage & Real-Time I/O</span>
+                                <span class="badge-tag badge-cyan" id="hud-drives-count">3 Drives Active</span>
+                            </div>
+                            <div id="hud-drives-container" style="display:flex; flex-direction:column; gap:8px; max-height:160px; overflow-y:auto; padding-right:4px;">
+                                <!-- Dynamic per-drive items rendered by app.js -->
+                                <div style="font-size:12px; color:var(--text-muted);">Detecting mounted disk volumes...</div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Network Throughput & Traffic -->
+                        <div class="stat-box">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <span class="stat-label">Network Throughput</span>
+                                <span class="status-dot"></span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:12px; margin: 4px 0;">
+                                <span style="font-size:14px; font-weight:700; color:var(--green-cyber);" id="hud-net-down">▼ Down: 0.0 MB/s</span>
+                                <span style="font-size:14px; font-weight:700; color:var(--cyan-primary);" id="hud-net-up">▲ Up: 0.0 MB/s</span>
+                            </div>
+                            <div class="progress-container" style="margin-top:6px;">
+                                <div class="progress-bar-cyan" id="hud-net-bar" style="width: 15%;"></div>
+                            </div>
+                            <span class="stat-meta" id="hud-os" style="margin-top:6px;">Windows 11 (AMD64)</span>
+                            <span class="stat-meta" id="hud-uptime">Uptime: 0h 0m</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Quick Launcher Card -->
+                    <div class="cyber-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <svg style="width:18px;height:18px;fill:var(--cyan-primary);" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z"/></svg>
+                                Fast Action Matrix
+                            </div>
+                            <span class="badge-tag badge-cyan">AUTOMATED</span>
+                        </div>
+                        <p style="color:var(--text-dim); margin-bottom:18px; font-size:14px; line-height:1.5;">
+                            Execute post-installation silent deployment batches, generate single portable .zip distribution bundles, or execute the Windows debloat and privacy hardening engine.
+                        </p>
+                        <div style="display:flex; flex-direction:column; gap:10px;">
+                            <button class="btn-cyber btn-primary" id="btn-quick-deploy">
+                                <svg style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                Launch Silent Deployment Matrix
+                            </button>
+                            <button class="btn-cyber btn-secondary" id="btn-quick-prime">
+                                <svg style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                Prime & Generate Software Bundle
+                            </button>
+                            <button class="btn-cyber btn-purple" id="btn-quick-debloat">
+                                <svg style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                Run Windows Debloat & Privacy Optimizer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Architecture & Safety Card -->
+                    <div class="cyber-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <svg style="width:18px;height:18px;fill:var(--green-cyber);" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                                Zero-Popup Silent Shield
+                            </div>
+                            <span class="badge-tag badge-green">PROTECTION ACTIVE</span>
+                        </div>
+                        <div style="font-size:14px; color:var(--text-dim); line-height:1.6; display:flex; flex-direction:column; gap:12px;">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <span class="badge-tag badge-green">RESTORE POINT</span>
+                                <span>Automatic System Restore Point created before any operation.</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <span class="badge-tag badge-cyan">ZERO POPUPS</span>
+                                <span>Installs run headless via <code>CREATE_NO_WINDOW</code> and silent parameters.</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <span class="badge-tag badge-purple">SINGLE ZIP</span>
+                                <span>Prime your software stack and export everything into one standalone .zip file.</span>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <span class="badge-tag badge-amber">UWP DEBLOAT</span>
+                                <span>Purges Cortana, preinstalled promotional apps, telemetry, and background services.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 2: PRIMING & BUNDLE STUDIO -->
+            <section class="view-section" id="view-priming">
+                <!-- Priming Control Bar -->
+                <div class="cyber-card" style="margin-bottom:18px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+                        <!-- Search Package Input -->
+                        <div style="flex:1; min-width:300px;">
+                            <div class="cyber-input-group">
+                                <input type="text" class="cyber-input" id="input-pkg-search" placeholder="Type package name (e.g. Java, Python, DirectX, VC++ Runtimes, 7-Zip, VS Code)...">
+                                <button class="btn-cyber btn-primary" id="btn-search-online" style="position:absolute; right:4px; padding:6px 14px; font-size:13px;">
+                                    Search Online
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Add Local File Button -->
+                        <button class="btn-cyber btn-secondary" id="btn-add-local-file">
+                            <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            Add Local Installer (.exe / .msi / .ps1 / .bat)
+                        </button>
+                    </div>
+
+                    <!-- Quick Preset Tag Chips -->
+                    <div style="display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; align-items:center;">
+                        <span style="font-size:12px; color:var(--text-dim); font-family:var(--font-mono);">QUICK PICKS:</span>
+                        <button class="badge-tag badge-cyan quick-pick-btn" data-query="Visual C++">VC++ All-in-One</button>
+                        <button class="badge-tag badge-cyan quick-pick-btn" data-query="DirectX">DirectX End-User</button>
+                        <button class="badge-tag badge-cyan quick-pick-btn" data-query=".NET Desktop Runtime">.NET 8.0</button>
+                        <button class="badge-tag badge-purple quick-pick-btn" data-query="Python 3.12">Python 3.12</button>
+                        <button class="badge-tag badge-purple quick-pick-btn" data-query="Workspace Full Python">Workspace AI & Python</button>
+                        <button class="badge-tag badge-purple quick-pick-btn" data-query="OpenJDK 21">Java JDK 21</button>
+                        <button class="badge-tag badge-green quick-pick-btn" data-query="7-Zip">7-Zip</button>
+                        <button class="badge-tag badge-green quick-pick-btn" data-query="Git for Windows">Git</button>
+                        <button class="badge-tag badge-green quick-pick-btn" data-query="Visual Studio Code">VS Code</button>
+                        <button class="badge-tag badge-amber quick-pick-btn" data-query="Google Chrome">Chrome</button>
+                        <button class="badge-tag badge-amber quick-pick-btn" data-query="Node.js">Node.js</button>
+                        <button class="badge-tag badge-amber quick-pick-btn" data-query="VLC Media Player">VLC</button>
+                    </div>
+                </div>
+
+                <!-- Online Search Results Container (Collapsible / Dynamic) -->
+                <div class="cyber-card" id="search-results-panel" style="margin-bottom:18px; display:none;">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Online Catalog & WinGet Repository Results
+                        </div>
+                        <button class="btn-icon" id="btn-close-search" style="width:28px;height:28px;">✕</button>
+                    </div>
+                    <div id="search-results-list" style="max-height:260px; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
+                        <!-- Dynamic search result rows -->
+                    </div>
+                </div>
+
+                <!-- Priming Queue Table -->
+                <div class="cyber-card" style="margin-bottom:18px;">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Primed Software Installation Stack (<span id="primed-count">0</span> packages)
+                        </div>
+                        <div style="display:flex; gap:10px;">
+                            <button class="btn-cyber btn-outline" id="btn-clear-queue" style="padding:6px 12px; font-size:12px;">Clear Stack</button>
+                        </div>
+                    </div>
+
+                    <table class="cyber-table" id="priming-table">
+                        <thead>
+                            <tr>
+                                <th style="width:50px;">#</th>
+                                <th>Software Name</th>
+                                <th>Category</th>
+                                <th>Framework / Type</th>
+                                <th>Pre-Answered Silent Switches</th>
+                                <th>Size</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="priming-tbody">
+                            <tr>
+                                <td colspan="7" style="text-align:center; color:var(--text-muted); padding:30px;">
+                                    No software packages added yet. Search online or add local installers above to prime your fresh Windows setup.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Bundle Export Panel -->
+                <div class="cyber-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Single Portable .ZIP Bundle Generator
+                        </div>
+                        <span class="badge-tag badge-purple">STANDALONE DEPLOYABLE</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;">
+                        <div style="flex:1; min-width:300px;">
+                            <label style="font-size:12px; color:var(--text-dim); font-family:var(--font-mono); display:block; margin-bottom:6px;">BUNDLE PACKAGE IDENTIFIER</label>
+                            <input type="text" class="cyber-input" id="input-bundle-name" value="mefresh_deployment_bundle">
+                        </div>
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <button class="btn-cyber btn-purple" id="btn-generate-bundle">
+                                <svg style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                                Export Standalone .ZIP Bundle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 3: SILENT DEPLOYMENT MATRIX -->
+            <section class="view-section" id="view-deployment">
+                <!-- Top Deployment Status -->
+                <div class="grid-3" style="margin-bottom:18px;">
+                    <div class="stat-box">
+                        <span class="stat-label">Deployment Progress</span>
+                        <span class="stat-value" id="deploy-stat-progress">0%</span>
+                        <div class="progress-container">
+                            <div class="progress-bar-cyan" id="deploy-progress-bar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Active Sequence</span>
+                        <span class="stat-value" id="deploy-stat-count">0 / 0</span>
+                        <span class="stat-meta" id="deploy-stat-current">Ready to initialize</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Execution Timer</span>
+                        <span class="stat-value" id="deploy-stat-timer">00:00</span>
+                        <span class="stat-meta" id="deploy-stat-result">Status: Idle</span>
+                    </div>
+                </div>
+
+                <!-- Deployment Action Bar -->
+                <div class="cyber-card" style="margin-bottom:18px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <button class="btn-cyber btn-secondary" id="btn-load-bundle-file">
+                                <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+                                Load .ZIP Bundle
+                            </button>
+                            <span style="font-size:13px; color:var(--text-dim);" id="loaded-bundle-label">Using primed queue</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <button class="btn-cyber btn-primary" id="btn-start-deployment">
+                                <svg style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                Execute Silent Installation
+                            </button>
+                            <button class="btn-cyber btn-outline" id="btn-pause-deployment" style="display:none;">Pause</button>
+                            <button class="btn-cyber btn-danger" id="btn-cancel-deployment" style="display:none;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Software Deployment Status List -->
+                <div class="cyber-card" style="margin-bottom:18px;">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Live Installation Queue
+                        </div>
+                        <span class="badge-tag badge-cyan">ZERO POPUPS HEADLESS</span>
+                    </div>
+                    <div id="deployment-items-list" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:6px;">
+                        <div style="text-align:center; color:var(--text-muted); padding:20px;">
+                            No active deployment. Click 'Execute Silent Installation' or load a bundle to begin.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Cyber HUD Terminal Console -->
+                <div class="cyber-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Real-Time Execution Console & Telemetry Stream
+                        </div>
+                        <div style="display:flex; gap:10px;">
+                            <button class="btn-cyber btn-outline" id="btn-copy-terminal" style="padding:4px 10px; font-size:12px;">Copy Logs</button>
+                            <button class="btn-cyber btn-outline" id="btn-clear-terminal" style="padding:4px 10px; font-size:12px;">Clear</button>
+                        </div>
+                    </div>
+                    <div class="cyber-terminal" id="cyber-terminal-logs">
+                        <div class="terminal-line log-info">[SYSTEM] mefresh telemetry bridge initialized. Ready for silent dispatch.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 4: WINDOWS DEBLOAT & PRIVACY OPTIMIZER -->
+            <section class="view-section" id="view-debloat">
+                <!-- Preset Bar -->
+                <div class="cyber-card" style="margin-bottom:18px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+                        <div>
+                            <div style="font-family:var(--font-display); font-size:16px; font-weight:700; color:#fff; margin-bottom:4px;">
+                                DEBLOAT & OPTIMIZATION MATRIX
+                            </div>
+                            <div style="font-size:13px; color:var(--text-dim);">
+                                Automatically creates a System Restore Point before purging bloatware and hardening privacy.
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <span style="font-size:12px; color:var(--text-dim); font-family:var(--font-mono);">PRESET:</span>
+                            <button class="btn-cyber btn-secondary preset-btn active" data-preset="standard">Standard Safe</button>
+                            <button class="btn-cyber btn-outline preset-btn" data-preset="minimal">Minimal Privacy</button>
+                            <button class="btn-cyber btn-purple preset-btn" data-preset="gamer">Gamer / Extreme</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Debloat Category Grid -->
+                <div class="grid-2" style="margin-bottom:18px;">
+                    <!-- Appx Bloatware -->
+                    <div class="cyber-card">
+                        <div class="card-header">
+                            <div class="card-title">Preinstalled UWP Bloatware Removal</div>
+                            <button class="btn-cyber btn-outline" id="btn-toggle-all-appx" style="padding:4px 10px; font-size:11px;">Select All</button>
+                        </div>
+                        <div id="debloat-appx-container" style="max-height:280px; overflow-y:auto;">
+                            <!-- Dynamic Appx Toggles -->
+                        </div>
+                    </div>
+
+                    <!-- Telemetry & Privacy -->
+                    <div class="cyber-card">
+                        <div class="card-header">
+                            <div class="card-title">Telemetry & Privacy Hardening</div>
+                            <button class="btn-cyber btn-outline" id="btn-toggle-all-telemetry" style="padding:4px 10px; font-size:11px;">Select All</button>
+                        </div>
+                        <div id="debloat-telemetry-container" style="max-height:280px; overflow-y:auto;">
+                            <!-- Dynamic Telemetry Toggles -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-bottom:18px;">
+                    <!-- Explorer & UI Tweaks -->
+                    <div class="cyber-card">
+                        <div class="card-header">
+                            <div class="card-title">Explorer & System Tweaks</div>
+                            <button class="btn-cyber btn-outline" id="btn-toggle-all-system" style="padding:4px 10px; font-size:11px;">Select All</button>
+                        </div>
+                        <div id="debloat-system-container" style="max-height:240px; overflow-y:auto;">
+                            <!-- Dynamic System Toggles -->
+                        </div>
+                    </div>
+
+                    <!-- Background Services -->
+                    <div class="cyber-card">
+                        <div class="card-header">
+                            <div class="card-title">Background Tracking Services</div>
+                            <button class="btn-cyber btn-outline" id="btn-toggle-all-services" style="padding:4px 10px; font-size:11px;">Select All</button>
+                        </div>
+                        <div id="debloat-services-container" style="max-height:240px; overflow-y:auto;">
+                            <!-- Dynamic Service Toggles -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Debloat Execute Action -->
+                <div class="cyber-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+                        <div>
+                            <div style="font-size:14px; font-weight:700; color:var(--text-cyan);">READY TO EXECUTE MATRIX</div>
+                            <div style="font-size:12px; color:var(--text-dim);">Changes will be permanently applied. System Restore Point will be created.</div>
+                        </div>
+                        <button class="btn-cyber btn-danger" id="btn-execute-debloat">
+                            <svg style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            Execute Selected Debloat Matrix
+                        </button>
+                    </div>
+                    <!-- Debloat Progress Bar -->
+                    <div class="progress-container" id="debloat-prog-wrap" style="margin-top:14px; display:none;">
+                        <div class="progress-bar-purple" id="debloat-progress-bar" style="width:0%;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: SYSTEM DIAGNOSTICS (msinfo32) -->
+            <section class="view-section" id="view-sysinfo">
+                <!-- SysInfo Header Controls & Category Pills -->
+                <div class="cyber-card" style="margin-bottom: 20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span class="cyber-pulse-dot"></span>
+                            <span style="font-size:14px; font-weight:800; letter-spacing:1px; color:var(--text-cyan);">// SYSTEM INFORMATION & DIAGNOSTICS (msinfo32)</span>
+                            <span class="badge-tag badge-cyan" id="sysinfo-timestamp">READY</span>
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <button class="btn-cyber btn-outline" id="btn-sysinfo-refresh" title="Rescan system hardware">
+                                🔄 Live Refresh
+                            </button>
+                            <button class="btn-cyber btn-outline" id="btn-sysinfo-copy" title="Copy markdown diagnostics report">
+                                📋 Copy Report
+                            </button>
+                            <button class="btn-cyber btn-primary" id="btn-launch-msinfo" title="Open native Windows msinfo32.exe">
+                                ⚡ Launch msinfo32
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category Pills & Search Filter -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.06);">
+                        <div class="sysinfo-cat-pills">
+                            <button class="cat-pill active" data-cat="summary" id="cat-pill-summary">📋 Summary</button>
+                            <button class="cat-pill" data-cat="gpus" id="cat-pill-gpus">🎮 Dual GPUs & Display</button>
+                            <button class="cat-pill" data-cat="disks" id="cat-pill-disks">💾 Storage & Drives</button>
+                            <button class="cat-pill" data-cat="network" id="cat-pill-network">🌐 Network Adapters</button>
+                        </div>
+                        <div style="position:relative; width:260px;">
+                            <input type="text" class="cyber-input" id="sysinfo-search-input" placeholder="Find what... (e.g. Ryzen, RTX, RAM)" style="height:34px; font-size:12px; padding-left:30px;">
+                            <span style="position:absolute; left:10px; top:8px; color:var(--text-dim); font-size:13px;">🔍</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero HUD Cards (Summary Overview) -->
+                <div class="grid-4" id="sysinfo-hero-cards" style="margin-bottom: 20px;">
+                    <div class="stat-box">
+                        <span class="stat-label">Operating System</span>
+                        <div class="stat-value" id="sysinfo-hero-os" style="font-size:16px;">Windows 11</div>
+                        <span class="stat-meta" id="sysinfo-hero-os-build">x64 Edition</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">System Board</span>
+                        <div class="stat-value" id="sysinfo-hero-board" style="font-size:16px; color:var(--neon-cyan);">MS-7E27</div>
+                        <span class="stat-meta" id="sysinfo-hero-mfg">Micro-Star Int.</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Processor</span>
+                        <div class="stat-value" id="sysinfo-hero-cpu" style="font-size:16px; color:var(--neon-green);">Ryzen 5 7600X</div>
+                        <span class="stat-meta" id="sysinfo-hero-cpu-cores">6C / 12T</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Physical RAM</span>
+                        <div class="stat-value" id="sysinfo-hero-ram" style="font-size:16px; color:var(--neon-purple);">31.18 GB</div>
+                        <span class="stat-meta" id="sysinfo-hero-ram-speed">4800 MHz</span>
+                    </div>
+                </div>
+
+                <!-- Categorized Dynamic Diagnostic Container -->
+                <div class="cyber-card" id="sysinfo-content-card">
+                    <div class="card-header">
+                        <div class="card-title" id="sysinfo-category-title">System Summary Details</div>
+                        <span class="badge-tag badge-cyan" id="sysinfo-item-count">14 Properties</span>
+                    </div>
+                    <div id="sysinfo-details-container" style="display:flex; flex-direction:column; gap:12px;">
+                        <!-- Dynamically filled by app.js -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 5: SETTINGS & AUDIO -->
+            <section class="view-section" id="view-settings">
+                <div class="grid-2">
+                    <div class="cyber-card">
+                        <div class="card-header">
+                            <div class="card-title">Audio Synthesizer Controls</div>
+                            <span class="badge-tag badge-purple">PROCEDURAL WEB AUDIO</span>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:14px;">
+                            <div class="toggle-wrapper">
+                                <span>Master Sound Effects</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="setting-sound-enabled" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div>
+                                <label style="font-size:12px; color:var(--text-dim); display:block; margin-bottom:6px;">SYNTHESIZER VOLUME</label>
+                                <input type="range" id="setting-sound-volume" min="0" max="1" step="0.05" value="0.35" style="width:100%;">
+                            </div>
+                            <div style="display:flex; gap:10px;">
+                                <button class="btn-cyber btn-outline" id="btn-test-sound">Test Cyber Audio</button>
+                                <button class="btn-cyber btn-outline" id="btn-test-shield">Test Shield Sound</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cyber-card">
+                        <div class="card-header">
+                            <div class="card-title">System Restore Point Management</div>
+                            <span class="badge-tag badge-green">SAFETY FIRST</span>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:14px;">
+                            <div class="toggle-wrapper">
+                                <span>Auto-create Restore Point before batch install</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="setting-restore-deploy" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-wrapper">
+                                <span>Auto-create Restore Point before debloating</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="setting-restore-debloat" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <button class="btn-cyber btn-primary" id="btn-manual-restore-now">
+                                Create Immediate Restore Point Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL: SWITCH & OPTION EDITOR -->
+    <div class="modal-backdrop" id="modal-switch-editor">
+        <div class="modal-box">
+            <div class="card-header">
+                <div class="card-title" id="modal-editor-title">Configure Unattended Switches</div>
+                <button class="btn-icon" id="btn-modal-close" style="width:28px;height:28px;">✕</button>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:18px;">
+                <div>
+                    <label style="font-size:12px; color:var(--text-dim); display:block; margin-bottom:4px;">SOFTWARE NAME</label>
+                    <input type="text" class="cyber-input" id="edit-pkg-name">
+                </div>
+                <div>
+                    <label style="font-size:12px; color:var(--text-dim); display:block; margin-bottom:4px;">INSTALLER FRAMEWORK / PRESET</label>
+                    <select class="cyber-input" id="edit-pkg-framework">
+                        <option value="inno">Inno Setup (/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-)</option>
+                        <option value="nsis">Nullsoft NSIS (/S)</option>
+                        <option value="msi">Microsoft MSI (/qn /norestart ALLUSERS=1)</option>
+                        <option value="installshield">InstallShield (/s /v"/qn /norestart")</option>
+                        <option value="generic_quiet">Generic (/quiet /norestart)</option>
+                        <option value="generic_silent">Generic (/silent /norestart)</option>
+                        <option value="custom">Custom / Manual Arguments</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size:12px; color:var(--text-dim); display:block; margin-bottom:4px;">EXACT SILENT ARGUMENTS</label>
+                    <input type="text" class="cyber-input" id="edit-pkg-args" placeholder="/quiet /norestart">
+                </div>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                <button class="btn-cyber btn-outline" id="btn-modal-cancel">Cancel</button>
+                <button class="btn-cyber btn-primary" id="btn-modal-save">Apply Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="qwebchannel.js"></script>
+    <script src="cyber_audio.js"></script>
+    <script src="particles.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
